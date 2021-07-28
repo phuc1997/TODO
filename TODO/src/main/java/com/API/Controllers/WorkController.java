@@ -57,8 +57,15 @@ public class WorkController {
 	}
 	
 	@DeleteMapping("/works/{id}")
-	public void delete(@PathVariable Integer id) {
-		service.delete(id);
+	public ResponseEntity<Works> delete(@RequestBody Works work, @PathVariable Integer id) {
+		try {
+			Works workDlt = service.getById(id);
+			service.delete(workDlt.getId());
+			return new ResponseEntity<Works>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<Works>(HttpStatus.NOT_FOUND);
+		}
+		
 	}
 	
 	
