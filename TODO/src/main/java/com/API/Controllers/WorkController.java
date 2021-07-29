@@ -61,13 +61,13 @@ public class WorkController {
 	}
 	
 	@DeleteMapping("/works/{id}")
-	public ResponseEntity<Works> delete(@RequestBody Works work, @PathVariable Integer id) {
+	public ResponseEntity<?> delete(@PathVariable Integer id) {
 		try {
 			Works workDlt = service.getById(id);
 			service.delete(workDlt.getId());
-			return new ResponseEntity<Works>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Works>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
 	}
