@@ -46,13 +46,17 @@ public class WorkController {
 	}
 	
 	@PutMapping("works/{id}")
-	public ResponseEntity<Works> update(@RequestBody Works work, @PathVariable Integer id) {
+	public ResponseEntity<?> update(@RequestBody Works work, @PathVariable Integer id) {
 		try {
 			Works workUpd = service.getById(id);
+			workUpd.setName(work.getName());
+			workUpd.setStartDay(work.getStartDay());
+			workUpd.setEndDay(work.getEndDay());
+			workUpd.setStatus(work.getStatus());
 			service.save(workUpd);
-			return new ResponseEntity<Works>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Works>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -68,7 +72,5 @@ public class WorkController {
 		
 	}
 	
-	
-//	http://localhost:8080/works?sortBy=status&page=1
 	
 }
